@@ -5,7 +5,7 @@
   "repository": "https://github.com/DiogodePaula/API-with-data-base.git",
   "author": "DiogodePaula <depaulatrabalhos@gmail.com>",
   "license": "MIT",
-  "script": {
+  "scripts": {
     "dev": "nodemon index.js"
   },
   "dependencies": {
