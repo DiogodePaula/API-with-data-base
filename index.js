@@ -11,7 +11,7 @@ server.get("/", (req,res)=>{
 
 server.get("/users", async(req,res)=>{
     let users;
-    await database.query(`SELECT * FROM users_data`, {type: database.QueryTypes.SElECT})
+    await database.query(`SELECT * FROM users`, {type: database.QueryTypes.SElECT})
         .then(results =>{
             users = results;
         }) 
@@ -26,7 +26,7 @@ server.post("/users", async (req,res)=>{
     let inseriu;
     const {id, name, age, phone, email} = req.body;
 
-    await database.query(`INSERT INTO users_data VALUES(${id},'${name}',${age},'${phone}','${email}');`,
+    await database.query(`INSERT INTO users VALUES(${id},'${name}',${age},'${phone}','${email}');`,
         {type: database.QueryTypes.INSERT})
         .then(result =>{
             inseriu = result
@@ -34,8 +34,12 @@ server.post("/users", async (req,res)=>{
         .catch(err =>{
             return res.json(err);
         });
-        
-    return res.json(inseriu);
+    if (inseriu[1]) {
+        return res.json("usuário inserido com sucesso");
+    } else {
+        return res.json("não foi possivel cadastrar o usuário");
+    }    
+    
 });
 
 server.listen(process.env.PORT);
